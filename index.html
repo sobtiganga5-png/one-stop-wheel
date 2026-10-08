@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Spin the Wheel</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:18px;min-height:100vh;font-family:Arial,sans-serif;text-align:center;background:linear-gradient(135deg,#10243d,#173e63,#0d2238);color:#fff;overflow-x:hidden}
+.title{font-size:28px;font-weight:900;margin:6px 0 8px}
+.subtitle{font-size:16px;opacity:.9;margin-bottom:18px}
+.wheel-area{position:relative;width:min(88vw,470px);aspect-ratio:1;margin:0 auto 22px}
+.pointer{position:absolute;z-index:10;top:-2px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:42px solid #fff;filter:drop-shadow(0 3px 4px rgba(0,0,0,.55))}
+#wheel{position:absolute;inset:0;border-radius:50%;border:9px solid #fff;box-shadow:0 0 0 5px rgba(255,255,255,.18),0 12px 35px rgba(0,0,0,.45);background:conic-gradient(#e63946 0deg 72deg,#f4a261 72deg 144deg,#2a9d8f 144deg 216deg,#457b9d 216deg 288deg,#9b5de5 288deg 360deg);transition:transform 5s cubic-bezier(.12,.72,.12,1)}
+.label{position:absolute;left:50%;top:50%;width:43%;height:43%;transform-origin:0 0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.label span{display:block;width:120px;font-size:16px;font-weight:900;line-height:1.08;text-align:center;transform:translate(34px,0) rotate(36deg)}
+.l1{transform:rotate(0deg) skewY(-18deg)}
+.l2{transform:rotate(72deg) skewY(-18deg)}
+.l3{transform:rotate(144deg) skewY(-18deg)}
+.l4{transform:rotate(216deg) skewY(-18deg)}
+.l5{transform:rotate(288deg) skewY(-18deg)}
+.center{position:absolute;z-index:12;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:#fff;color:#173e63;display:flex;align-items:center;justify-content:center;font-size:32px;box-shadow:0 5px 14px rgba(0,0,0,.4)}
+button{border:0;border-radius:50px;padding:17px 42px;font-size:21px;font-weight:900;color:#fff;background:linear-gradient(135deg,#ff7a18,#ff3d00);box-shadow:0 7px 20px rgba(0,0,0,.35);cursor:pointer}
+button:disabled{opacity:.55}
+.result{display:none;margin:20px auto 0;max-width:390px;padding:18px;border-radius:18px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25)}
+.prize{font-size:26px;font-weight:900;margin-top:6px}
+.claim{margin-top:9px;font-size:14px;opacity:.9}
+</style>
+</head>
+<body>
+<div class="title">🎡 SPIN THE WHEEL</div>
+<div class="subtitle">Spin the wheel and unlock your special offer!</div>
+
+<div class="wheel-area">
+  <div class="pointer"></div>
+  <div id="wheel">
+    <div class="label l1"><span>🎉<br>5% OFF</span></div>
+    <div class="label l2"><span>🎁<br>FREE<br>SHIPPING</span></div>
+    <div class="label l3"><span>🔥<br>10% OFF</span></div>
+    <div class="label l4"><span>💎<br>SPECIAL<br>OFFER</span></div>
+    <div class="label l5"><span>🎊<br>EXTRA<br>DISCOUNT</span></div>
+  </div>
+  <div class="center">🎡</div>
+</div>
+
+<button id="spinButton" type="button">SPIN NOW 🎁</button>
+
+<div id="result" class="result" aria-live="polite">
+  <div>🎉 YOU WON!</div>
+  <div id="prize" class="prize"></div>
+  <div class="claim">Contact our team to claim your offer.</div>
+</div>
+
+<script>
+const tg=window.Telegram&&window.Telegram.WebApp;
+if(tg){tg.ready();tg.expand();}
+
+const wheel=document.getElementById("wheel");
+const button=document.getElementById("spinButton");
+const result=document.getElementById("result");
+const prize=document.getElementById("prize");
+
+const offers=[
+  {name:"🎉 5% OFF",angle:36},
+  {name:"🎁 FREE SHIPPING",angle:108},
+  {name:"🔥 10% OFF",angle:180},
+  {name:"💎 SPECIAL MEMBER OFFER",angle:252},
+  {name:"🎊 EXTRA DISCOUNT",angle:324}
+];
+
+let spinning=false,currentRotation=0;
+
+button.addEventListener("click",()=>{
+  if(spinning)return;
+  spinning=true;
+  button.disabled=true;
+  result.style.display="none";
+
+  const winnerIndex=Math.floor(Math.random()*offers.length);
+  const winner=offers[winnerIndex];
+  const extraSpins=6+Math.floor(Math.random()*3);
+  currentRotation += extraSpins*360+(360-winner.angle);
+
+  wheel.style.transform=`rotate(${currentRotation}deg)`;
+
+  setTimeout(()=>{
+    prize.textContent=winner.name;
+    result.style.display="block";
+    spinning=false;
+    button.disabled=false;
+    button.textContent="SPIN AGAIN 🎁";
+  },5200);
+});
+</script>
+</body>
+</html>
