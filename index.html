@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>Spin the Wheel</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -62,6 +66,7 @@ body{
   inset:0;
   border-radius:50%;
   border:9px solid #fff;
+
   box-shadow:
     0 0 0 5px rgba(255,255,255,.18),
     0 12px 35px rgba(0,0,0,.45);
@@ -127,27 +132,42 @@ body{
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
+
   width:78px;
   height:78px;
+
   border-radius:50%;
   background:#fff;
   color:#173e63;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:32px;
+
   box-shadow:0 5px 14px rgba(0,0,0,.4);
 }
 
 button{
   border:0;
   border-radius:50px;
+
   padding:16px 34px;
+
   font-size:20px;
   font-weight:900;
+
   color:#fff;
-  background:linear-gradient(135deg,#ff7a18,#ff3d00);
+
+  background:linear-gradient(
+    135deg,
+    #ff7a18,
+    #ff3d00
+  );
+
   box-shadow:0 7px 20px rgba(0,0,0,.35);
+
   cursor:pointer;
   margin:5px;
 }
@@ -158,7 +178,11 @@ button:disabled{
 }
 
 .claimButton{
-  background:linear-gradient(135deg,#00c853,#00a844);
+  background:linear-gradient(
+    135deg,
+    #00c853,
+    #00a844
+  );
 }
 
 .closeButton{
@@ -167,15 +191,29 @@ button:disabled{
   padding:12px 24px;
 }
 
+.result,
+.already{
+  margin:20px auto 0;
+
+  max-width:390px;
+
+  padding:20px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.13);
+
+  border:1px solid rgba(255,255,255,.25);
+
+  box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
 .result{
   display:none;
-  margin:20px auto 0;
-  max-width:390px;
-  padding:20px;
-  border-radius:18px;
-  background:rgba(255,255,255,.13);
-  border:1px solid rgba(255,255,255,.25);
-  box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+.already{
+  display:none;
 }
 
 .resultTitle{
@@ -186,7 +224,7 @@ button:disabled{
 .prize{
   font-size:27px;
   font-weight:900;
-  margin:8px 0;
+  margin:10px 0;
 }
 
 .claim{
@@ -197,9 +235,9 @@ button:disabled{
 }
 
 .code{
-  font-size:13px;
-  opacity:.8;
-  margin-bottom:8px;
+  font-size:14px;
+  opacity:.85;
+  margin:8px 0 12px;
 }
 
 .note{
@@ -208,40 +246,55 @@ button:disabled{
   margin-top:12px;
 }
 
-.already{
-  display:none;
-  margin:25px auto 0;
-  max-width:390px;
-  padding:22px;
-  border-radius:18px;
-  background:rgba(255,255,255,.13);
-  border:1px solid rgba(255,255,255,.25);
-}
 </style>
+
 </head>
 
+
 <body>
+
 
 <div class="title">
   🎡 SPIN THE WHEEL
 </div>
 
+
 <div class="subtitle">
   Spin the wheel and unlock your special offer!
 </div>
 
+
+<!-- PREVIOUS OFFER -->
+
 <div id="already" class="already">
 
-  <div style="font-size:22px;font-weight:900">
-    🎁 Your spin is already used
+  <div style="font-size:22px;font-weight:900;">
+    🎁 YOUR PREVIOUS OFFER
   </div>
 
-  <div style="margin-top:8px;opacity:.9">
-    You can claim the offer from your previous spin.
+  <div id="previousOffer"
+       class="prize">
   </div>
+
+  <div id="previousCode"
+       class="code">
+  </div>
+
+  <div class="claim">
+    Your spin has already been used.
+    You can still claim your offer below.
+  </div>
+
+  <button id="previousClaim"
+          class="claimButton"
+          type="button">
+    CLAIM OFFER 🎁
+  </button>
 
 </div>
 
+
+<!-- GAME -->
 
 <div id="game">
 
@@ -298,30 +351,43 @@ button:disabled{
   </div>
 
 
-  <button id="spinButton" type="button">
+  <button id="spinButton"
+          type="button">
     SPIN NOW 🎁
   </button>
 
 
-  <div id="result" class="result">
+  <!-- RESULT -->
+
+  <div id="result"
+       class="result">
 
     <div class="resultTitle">
       🎉 YOU WON!
     </div>
 
-    <div id="prize" class="prize"></div>
-
-    <div class="claim">
-      Tap the button below to send your offer claim to our Telegram team.
+    <div id="prize"
+         class="prize">
     </div>
 
-    <div id="claimCode" class="code"></div>
+    <div class="claim">
+      Congratulations!
+      Your special offer is ready to claim.
+    </div>
 
-    <button id="claimButton" class="claimButton" type="button">
+    <div id="claimCode"
+         class="code">
+    </div>
+
+    <button id="claimButton"
+            class="claimButton"
+            type="button">
       CLAIM OFFER 🎁
     </button>
 
-    <button id="closeButton" class="closeButton" type="button">
+    <button id="closeButton"
+            class="closeButton"
+            type="button">
       CLOSE
     </button>
 
@@ -353,7 +419,7 @@ if(tg){
 const wheel =
   document.getElementById("wheel");
 
-const button =
+const spinButton =
   document.getElementById("spinButton");
 
 const result =
@@ -362,20 +428,29 @@ const result =
 const prize =
   document.getElementById("prize");
 
-const claimButton =
-  document.getElementById("claimButton");
-
 const claimCode =
   document.getElementById("claimCode");
 
-const closeButton =
-  document.getElementById("closeButton");
+const claimButton =
+  document.getElementById("claimButton");
+
+const previousClaim =
+  document.getElementById("previousClaim");
+
+const previousOffer =
+  document.getElementById("previousOffer");
+
+const previousCode =
+  document.getElementById("previousCode");
+
+const already =
+  document.getElementById("already");
 
 const game =
   document.getElementById("game");
 
-const already =
-  document.getElementById("already");
+const closeButton =
+  document.getElementById("closeButton");
 
 
 const offers = [
@@ -441,12 +516,17 @@ function randomCode(){
 
   let value = "";
 
-  for(let i=0;i<6;i++){
+  for(
+    let i = 0;
+    i < 6;
+    i++
+  ){
 
     value +=
       chars.charAt(
         Math.floor(
-          Math.random() * chars.length
+          Math.random() *
+          chars.length
         )
       );
 
@@ -456,34 +536,142 @@ function randomCode(){
 }
 
 
-if(localStorage.getItem(storageKey)){
+function createClaimLink(
+  offerKey,
+  claimCode
+){
 
-  game.style.display = "none";
+  const startParameter =
+    "claim_" +
+    offerKey +
+    "_" +
+    claimCode;
 
-  already.style.display = "block";
+  return (
+    "https://t.me/OneStopWellnessBot?start=" +
+    startParameter
+  );
 
 }
 
 
-button.addEventListener(
+function openClaim(
+  offerKey,
+  claimCode
+){
+
+  if(!offerKey || !claimCode){
+    return;
+  }
+
+  const link =
+    createClaimLink(
+      offerKey,
+      claimCode
+    );
+
+
+  if(
+    tg &&
+    tg.openTelegramLink
+  ){
+
+    tg.openTelegramLink(link);
+
+  }else{
+
+    window.location.href =
+      link;
+
+  }
+
+}
+
+
+/* CHECK PREVIOUS SPIN */
+
+const savedSpin =
+  localStorage.getItem(
+    storageKey
+  );
+
+
+if(savedSpin){
+
+  try{
+
+    const saved =
+      JSON.parse(savedSpin);
+
+    const savedOffer =
+      offers.find(
+        function(item){
+          return item.key === saved.offer;
+        }
+      );
+
+
+    if(savedOffer){
+
+      game.style.display =
+        "none";
+
+      already.style.display =
+        "block";
+
+      previousOffer.textContent =
+        savedOffer.name;
+
+      previousCode.textContent =
+        "Claim code: " +
+        saved.code;
+
+
+      previousClaim.onclick =
+        function(){
+
+          openClaim(
+            savedOffer.key,
+            saved.code
+          );
+
+        };
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+/* SPIN */
+
+spinButton.addEventListener(
   "click",
   function(){
 
-    if(spinning || winner){
+    if(spinning){
       return;
     }
 
 
     spinning = true;
 
-    button.disabled = true;
+    spinButton.disabled =
+      true;
 
-    result.style.display = "none";
+    result.style.display =
+      "none";
 
 
     const winnerIndex =
       Math.floor(
-        Math.random() * offers.length
+        Math.random() *
+        offers.length
       );
 
 
@@ -522,7 +710,8 @@ button.addEventListener(
 
 
         claimCode.textContent =
-          "Claim code: " + code;
+          "Claim code: " +
+          code;
 
 
         result.style.display =
@@ -535,9 +724,11 @@ button.addEventListener(
 
           JSON.stringify({
 
-            offer: winner.key,
+            offer:
+              winner.key,
 
-            code: code,
+            code:
+              code,
 
             date:
               new Date().toISOString()
@@ -547,9 +738,11 @@ button.addEventListener(
         );
 
 
-        spinning = false;
+        spinning =
+          false;
 
-        button.textContent =
+
+        spinButton.textContent =
           "SPIN USED";
 
       },
@@ -563,54 +756,25 @@ button.addEventListener(
 );
 
 
+/* CLAIM CURRENT OFFER */
+
 claimButton.addEventListener(
-
   "click",
-
   function(){
 
-    if(!winner || !code){
-      return;
-    }
-
-
-    const startParameter =
-      "claim_" +
-      winner.key +
-      "_" +
-      code;
-
-
-    const deepLink =
-      "https://t.me/OneStopWellnessBot?start=" +
-      startParameter;
-
-
-    if(
-      tg &&
-      tg.openTelegramLink
-    ){
-
-      tg.openTelegramLink(
-        deepLink
-      );
-
-    }else{
-
-      window.location.href =
-        deepLink;
-
-    }
+    openClaim(
+      winner.key,
+      code
+    );
 
   }
-
 );
 
 
+/* CLOSE */
+
 closeButton.addEventListener(
-
   "click",
-
   function(){
 
     if(
@@ -627,7 +791,6 @@ closeButton.addEventListener(
     }
 
   }
-
 );
 
 </script>
